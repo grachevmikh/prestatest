@@ -25,7 +25,7 @@ class StudentsCore extends ObjectModel
     {
         $idLang = (int) Configuration::get('PS_LANG_DEFAULT');
         $sql = new DbQuery();
-        $sql->select('*')
+        $sql->select('s.id AS id, s.date AS date, CASE WHEN s.status=1 THEN "Учится" ELSE "Отчислен" END AS status, s.average_score AS average_score, sl.name AS name')
             ->from('students', 's')
             ->leftJoin('students_lang', 'sl', 's.id = sl.id_student')
             ->where('sl.id_lang = '.$idLang);
